@@ -1,0 +1,19 @@
+{
+  "holiday_summary": {
+    "countries": {
+      "US": 16,
+      "CA": 31,
+      "GB": 13
+    },
+    "statistics": {
+      "most_holidays": {
+        "country": "CA",
+        "count": 31
+      },
+      "least_holidays": {
+        "country": "GB",
+        "count": 13
+      }
+    }
+  }
+}

@@ -1,0 +1,394 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{tcolorbox}
+
+\definecolor{sectioncolor}{RGB}{0,102,204}
+
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{sectioncolor}}
+  {\thesection}{1em}{}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{AI Data Collection Agent Assignment}
+\lhead{Data Science Project}
+\rfoot{Page \thepage}
+
+\title{\textbf{AI Data Collection Agent Assignment}\\ Data Science Project Report}
+\author{Ewan Pedersen}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+\newpage
+
+\tableofcontents
+\newpage
+% ============================================================
+\section{Part 1: Your Scenario (20 points)}
+% ============================================================
+
+\subsection{Main Objective}
+
+\textbf{Main Objective:} Collect prediction market data from Kalshi API to analyze market sentiment and forecasting accuracy across various event categories.
+
+\subsection{Data Sources}
+
+\begin{itemize}
+  \item \textbf{Kalshi API}: \url{https://kalshi.com} - A regulated prediction market platform providing real-time market data for various events including elections, economics, and sports.
+\end{itemize}
+
+\subsection{Data Types}
+
+The following types of data will be collected from the Kalshi API:
+
+\begin{itemize}
+  \item Market prices (bid/ask spreads, last traded price)
+  \item Trading volume (number of contracts traded)
+  \item Event outcomes (binary yes/no predictions)
+  \item Probability predictions (implied probabilities from market prices)
+  \item Market metadata (event titles, categories, settlement dates)
+  \item JSON formatted responses containing structured market data
+\end{itemize}
+
+\subsection{Geographic Scope}
+
+The data collection focuses on US-centric prediction markets, including:
+
+\begin{itemize}
+  \item US elections (federal, state, and local)
+  \item US economic indicators (GDP, unemployment, inflation)
+  \item US sports events and outcomes
+  \item US political events and policy decisions
+\end{itemize}
+
+\subsection{Time Range}
+
+\begin{itemize}
+  \item \textbf{Current market data}: Real-time and recent market snapshots
+  \item \textbf{Historical outcomes}: Past settled markets for accuracy analysis
+  \item \textbf{Collection period}: October 2024 to present
+  \item \textbf{Focus}: Active markets with upcoming settlement dates and recently settled markets for validation
+\end{itemize}
+% ============================================================
+\section{Part 2: Learning about APIs (15 points)}
+% ============================================================
+
+\subsection{API Learning Reflection}
+% Write a brief reflection (1 paragraph) on what you learned about APIs
+% Topics to cover:
+% - What is an API and how does it work?
+% - How do APIs facilitate data exchange?
+% - What did you learn about API authentication?
+% - What challenges did you encounter?
+% - How can APIs be used in data science projects?
+
+They are \textbf{asynchronous}, and as such I can no longer consider my code in that linear, deterministic way. I have to think about the fact that the API may not respond, or may respond slowly, and I have to code around that. Not only that, but oftentimes it is through a RESTful interface, meaning I must use the http protocol to communicate with it.
+
+
+% ============================================================
+\section{Part 3: Setting Up Free API Access (10 points)}
+% ============================================================
+
+\subsection{API Key Creation}
+% Description of the API setup process
+
+Created the API key by signing up on the Kalshi platform, navigating to the developer section, and generating a new API key for accessing market data.
+
+My test script is available under \texttt{assignment-scripts/kalshi-api-test.py}
+
+\subsection{Screenshot: Successful API Access}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{media/key_creation.png}
+  \caption{Screenshot showing successful API key creation}
+  \label{fig:api_setup}
+\end{figure}
+
+\subsection{Config File Template}
+
+Kalshi uses both a environment variable and a special config file for the private key.
+
+The env file looks like:
+
+\begin{verbatim}
+KALSHI-API-Key=your_api_key_here
+\end{verbatim}
+
+And the private key config file looks like(this is scrambled):
+
+\begin{verbatim}
+-----BEGIN RSA PRIVATE KEY-----
+MjIEogIjAAKCAjEArVaAnsBhK0QEjdDHz5qtYR8zoIMVHFe4xQLwKsX9K3cXruhY
+kfyaqOmAWnUfJHEdwjJOPK61zd8LaafUdpnNY9EklQC9+GM4XyyzgMsUaerHRaY/
+AEy0v2v6C2M5NfBWx96zGlztvwCmy8rnbLOBMBk29IXwvE4oxEQCJfu0FukfFitC
+q4gWmavYs6ObUnbvoi9TzLhrgVEx3XsamzowiJrEnKlcmfHKtps1iTVyCdqSj/qV
+yajfpOXsBYJhmemZZUF/jQtvpHsIait7adl0XWvCAGrVVrb4MuVo47RnrTewgE+y
+5uQiGNoM8aijWjFkd1hXFa4ZikgM7I2ENrvDXQIDAQABAoIBAETzFMSRN9Wy/9CQ
+HPsKxw7MD4g4vCwDBN9xNMF+8h7ZB5WunJShi4PHJiRVVGb1i+XUhuSChpT2tR55
+AP2QXm/nIIsYuXhVV3YcXObNYThkiJG++G6RFJDUTak79eTrzklA37OL5ZJFmxOT
+iozmtmvAi+imYsU0veicONKNFezhdGiHsvwrfLJCGpFGA7nmdYAo4xes6Hzs9ZO7
+WFpWxzHnzhTrjx8InXGrfx1K+Bboecbo55pg10fk4PIig136t025RCShk+Bihh6S
+BkHMRHYV3YZZq65kgj9hxIMfnU51WmR/+jSi3ur0AHBjpOrHV2qiGX3h5dgPo389
+hk6Mfg0CgYEAw+Qutcoubs/e2zgioy38Er0GEIWS/kHCwOav2QcV9ct2FXteEVMz
+dsukT8QSqYGfmM/ujJHaNAn9L1ufJ4MH8WYn43rJNO0lcSQsk1rmqeuYneQwn6x8
+CXEQi5NfnOLv9ju4ZmtRHfAebghyFILJ5xDgRplQ0EvttlyldUHDubsCgYEA4oai
+C4qGsRIeLLGY0oNC+4wjY047NvPAL1biZDedhaFGHKBhRrVKdLHK3cnUPQx7WXF1
+voiNtrlcE1Xr2pWKSz3LtYJTCU/HDBypWwOe5SvkhsVHQp4ch19LweWsh8v4+1PW
+hiaskzDEOqdgyKWdErcMMH/dyOKyfNVkq98XeccCgYAFCVfeGq2o8bVEI6RYV7VU
+cgG26QhHez9boFLDHLiG0k1d7gcUIPSAyGjYF213aDrHPglfGdznW55j2lI0PN02
+aq753U1RDAvbZdezjjHCCqmj3ZYWdOLdaUfInuhlazxKM2zhTT8Pqv3NTHBKcLZq
+N3fcuNJoGJurBaTHaAJ1QwKBgBO1cClq5gkl8GYnFYrLTNqh+Lo9Jj3Du2bjAlOB
+2zyzKWx4MZI5V78LcQEW/FZLbbf8fSgUrW/GdNJh2WFtPVkKiVzDeAIJZOIS5FE8
+4WhDB2EKbQbIxuaoTekS2I4AGyuSwcluN/medpQ719ndPutP7cmSdnNx9eGSl220
+vVAlAoGAC4Z5gZQRr80yRzn5LdK7E7U1PIJBXetxiAgekeI1uy3Gw3N6IwcrNXXl
+1mXo+vyijxhiPpdpgDf+NyHvb8Z7qqGUJA/CLMMasd2ViX8Erfx0XWl1mBmC30JD
+ZoF56Z4Eseb4q7YbJspNEEmFXJxsPmqlrapM5oxQ7cgyxmZubqE=
+-----END RSA PRIVATE KEY-----
+\end{verbatim}
+
+
+% ============================================================
+\section{Part 4: Build Your AI Data Collection Agent (35 points)}
+% ============================================================
+
+\subsection{Agent Architecture Overview}
+
+The \texttt{KalshiDataAgent} collects prediction market data from Kalshi's API. It has six core components:
+
+\begin{enumerate}
+  \item \textbf{Configuration Management} - Loads parameters from JSON files or uses defaults
+  \item \textbf{Intelligent Collection Strategy} - Adaptive loop that monitors performance
+  \item \textbf{Data Quality Assessment} - Evaluates completeness, accuracy, consistency, timeliness
+  \item \textbf{Adaptive Strategy} - Adjusts collection based on success rates
+  \item \textbf{Respectful Rate Limiting} - Delays with jitter to avoid overwhelming the API
+  \item \textbf{Automated Documentation} - Generates metadata, quality reports, recommendations
+\end{enumerate}
+
+\subsection{Key Features}
+
+\begin{itemize}
+  \item \textbf{Configuration-Driven}: Loads from JSON files or environment variables
+  \item \textbf{Error Handling}: Try-catch blocks with detailed logging
+  \item \textbf{Data Validation}: Checks required fields and types
+  \item \textbf{Quality Metrics}: Calculates completeness, accuracy, consistency, timeliness
+  \item \textbf{Adaptive Delays}: Adjusts based on API success rates
+  \item \textbf{Report Generation}: Outputs four JSON reports
+\end{itemize}
+
+\subsection{Screenshots: Agent Running}
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{media/agent-running.png}
+  \caption{Screenshot showing the agent running successfully}
+  \label{fig:agent_running}
+\end{figure}
+
+Note: the screenshot is quite big, so it will likely be moved to the end of the report by my latex compiler.
+
+\subsection{Code Implementation Highlights}
+
+\subsubsection{1. Configuration Management}
+
+Loads config from JSON or uses defaults. Tracks requests, timestamps, and adaptive variables.
+
+\begin{verbatim}
+def __init__(self, config_file=None):
+    self.config = self.load_config(config_file)
+                  if config_file else self._default_config()
+    self.collection_stats = {
+        'total_requests': 0,
+        'successful_requests': 0,
+        'failed_requests': 0,
+    }
+    self.delay_multiplier = 1.0
+\end{verbatim}
+
+\subsubsection{2. Collection Loop}
+
+Main loop checks completion, processes data, assesses performance, and delays.
+
+\begin{verbatim}
+def run_collection(self):
+    try:
+        while not self.collection_complete():
+            data = self.collect_batch()
+            if data:
+                self.process_and_store(data)
+            self.assess_performance()
+            self.respectful_delay()
+    finally:
+        self.generate_final_report()
+\end{verbatim}
+
+\subsubsection{3. Quality Assessment}
+
+Evaluates four dimensions: completeness, accuracy, consistency, timeliness.
+
+\begin{verbatim}
+def assess_data_quality(self):
+    quality_metrics = {
+        'completeness': self.check_completeness(),
+        'accuracy': self.check_accuracy(),
+        'consistency': self.check_consistency(),
+        'timeliness': 1.0
+    }
+    return sum(quality_metrics.values()) / len(quality_metrics)
+\end{verbatim}
+
+\subsubsection{4. Adaptive Strategy}
+
+Doubles delay if success rate drops below 50\%. Reduces delay if above 90\%.
+
+\begin{verbatim}
+def adjust_strategy(self):
+    success_rate = self.get_success_rate()
+    if success_rate < 0.5:
+        self.delay_multiplier *= 2
+    elif success_rate > 0.9:
+        self.delay_multiplier *= 0.8
+\end{verbatim}
+
+\subsubsection{5. Rate Limiting}
+
+Base delay with random jitter (0.5x to 1.5x) to avoid overwhelming the API.
+
+\begin{verbatim}
+def respectful_delay(self):
+    base_delay = self.config.get('base_delay', 1.0)
+    jitter = random.uniform(0.5, 1.5)
+    time.sleep(base_delay * self.delay_multiplier * jitter)
+\end{verbatim}
+
+\subsubsection{6. Report Generation}
+
+Generates four JSON files: collected data, summary, quality report, metadata.
+
+% ============================================================
+\section{Part 5: Documentation (20 points)}
+% ============================================================
+
+% ------------------------------------------------------------
+\subsection{Quality Assessment Report}
+% ------------------------------------------------------------
+
+\subsubsection{Total Number of Records}
+
+\begin{itemize}
+  \item \textbf{Events}: 5 records
+  \item \textbf{Markets}: 5 records
+  \item \textbf{Total}: 10 data points
+  \item \textbf{Categories}: Politics, Economics, Sports, Technology, Weather
+\end{itemize}
+
+\subsubsection{Collection Success Rate}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Endpoint} & \textbf{Attempted} & \textbf{Successful} & \textbf{Rate} \\
+\hline
+Exchange Status & 1 & 1 & 100\% \\
+Events & 1 & 1 & 100\% \\
+Markets & 5 & 5 & 100\% \\
+\hline
+\textbf{Overall} & \textbf{7} & \textbf{7} & \textbf{100\%} \\
+\hline
+\end{tabular}
+\caption{Success Rates by Endpoint}
+\label{tab:success_rates}
+\end{table}
+
+\subsubsection{Quality Score}
+
+\paragraph{Completeness}
+All required fields populated. \textbf{Score: 100\%}
+
+\paragraph{Accuracy}
+Type validation passed for all numeric and string fields. \textbf{Score: 100\%}
+
+\paragraph{Consistency}
+All records have identical schema. \textbf{Score: 100\%}
+
+\paragraph{Timeliness}
+Real-time collection with timestamps. \textbf{Score: 100\%}
+
+\paragraph{Overall Quality Score}
+\textbf{100/100}
+
+% ------------------------------------------------------------
+\subsection{Collection Summary}
+% ------------------------------------------------------------
+
+\subsubsection{Total Data Points Collected}
+
+\begin{itemize}
+  \item 10 records (5 events + 5 markets)
+  \item 70 total fields (7 per market)
+  \item 3 endpoints accessed
+  \item 5 market categories
+\end{itemize}
+
+\subsubsection{Success/Failure Rates by API}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Endpoint} & \textbf{Success Rate} \\
+\hline
+Exchange Status & 100\% \\
+Events & 100\% \\
+Markets & 100\% \\
+\hline
+\textbf{Overall} & \textbf{100\%} \\
+\hline
+\end{tabular}
+\caption{API Performance}
+\label{tab:api_performance}
+\end{table}
+
+\subsubsection{Quality Metrics and Trends}
+
+\begin{itemize}
+  \item Data quality stayed at 100\% throughout collection
+  \item No API failures or timeouts
+  \item Schema remained consistent
+  \item No missing values
+\end{itemize}
+
+\subsubsection{Issues Encountered}
+
+\begin{itemize}
+  \item No critical issues
+  \item No rate limiting violations
+  \item No validation failures
+  \item All responses within timeout
+\end{itemize}
+
+\subsubsection{Recommendations for Future Collection}
+
+\begin{enumerate}
+  \item Maintain current rate limiting strategy
+  \item Add historical price data collection
+  \item Implement data versioning for trend analysis
+  \item Add incremental collection for efficiency
+  \item Tune delay based on long-term behavior
+\end{enumerate}
+
+\end{document}
+

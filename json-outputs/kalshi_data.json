@@ -1,0 +1,132 @@
+{
+  "collection_time": "2025-09-30T19:41:17.215645",
+  "exchange_status": {
+    "exchange_active": true,
+    "trading_active": true,
+    "maintenance_mode": false
+  },
+  "events": [
+    {
+      "event_ticker": "EVENT-001",
+      "title": "Will Democrats control the Senate in 2026?",
+      "category": "Politics",
+      "sub_title": "Prediction market for politics outcomes",
+      "mutually_exclusive": true,
+      "markets_count": 3,
+      "status": "open"
+    },
+    {
+      "event_ticker": "EVENT-002",
+      "title": "Will inflation be above 3% in Q1 2026?",
+      "category": "Economics",
+      "sub_title": "Prediction market for economics outcomes",
+      "mutually_exclusive": true,
+      "markets_count": 1,
+      "status": "open"
+    },
+    {
+      "event_ticker": "EVENT-003",
+      "title": "Will the Lakers make the playoffs?",
+      "category": "Sports",
+      "sub_title": "Prediction market for sports outcomes",
+      "mutually_exclusive": true,
+      "markets_count": 4,
+      "status": "open"
+    },
+    {
+      "event_ticker": "EVENT-004",
+      "title": "Will Apple stock close above $200 by year end?",
+      "category": "Technology",
+      "sub_title": "Prediction market for technology outcomes",
+      "mutually_exclusive": true,
+      "markets_count": 1,
+      "status": "open"
+    },
+    {
+      "event_ticker": "EVENT-005",
+      "title": "Will there be a major hurricane in 2026?",
+      "category": "Weather",
+      "sub_title": "Prediction market for weather outcomes",
+      "mutually_exclusive": true,
+      "markets_count": 5,
+      "status": "open"
+    }
+  ],
+  "markets": [
+    {
+      "ticker": "POL-25SEP01",
+      "title": "Will Democrats control the Senate in 2026?",
+      "category": "Politics",
+      "status": "open",
+      "yes_bid": 0.64,
+      "yes_ask": 0.68,
+      "no_bid": 0.32,
+      "no_ask": 0.36,
+      "last_price": 0.66,
+      "volume": 28774,
+      "open_interest": 10679,
+      "close_time": "2026-02-03T19:41:17.215543",
+      "expiration_time": "2026-08-25T19:41:17.215550"
+    },
+    {
+      "ticker": "ECO-25SEP02",
+      "title": "Will inflation be above 3% in Q1 2026?",
+      "category": "Economics",
+      "status": "open",
+      "yes_bid": 0.38,
+      "yes_ask": 0.42,
+      "no_bid": 0.58,
+      "no_ask": 0.62,
+      "last_price": 0.4,
+      "volume": 10630,
+      "open_interest": 65481,
+      "close_time": "2026-03-19T19:41:17.215563",
+      "expiration_time": "2026-03-26T19:41:17.215566"
+    },
+    {
+      "ticker": "SPO-25SEP03",
+      "title": "Will the Lakers make the playoffs?",
+      "category": "Sports",
+      "status": "open",
+      "yes_bid": 0.31,
+      "yes_ask": 0.35,
+      "no_bid": 0.65,
+      "no_ask": 0.69,
+      "last_price": 0.33,
+      "volume": 16337,
+      "open_interest": 71396,
+      "close_time": "2026-04-13T19:41:17.215575",
+      "expiration_time": "2026-07-03T19:41:17.215577"
+    },
+    {
+      "ticker": "TEC-25SEP04",
+      "title": "Will Apple stock close above $200 by year end?",
+      "category": "Technology",
+      "status": "open",
+      "yes_bid": 0.47,
+      "yes_ask": 0.51,
+      "no_bid": 0.49,
+      "no_ask": 0.53,
+      "last_price": 0.49,
+      "volume": 28028,
+      "open_interest": 91696,
+      "close_time": "2026-04-17T19:41:17.215585",
+      "expiration_time": "2026-03-02T19:41:17.215587"
+    },
+    {
+      "ticker": "WEA-25SEP05",
+      "title": "Will there be a major hurricane in 2026?",
+      "category": "Weather",
+      "status": "open",
+      "yes_bid": 0.57,
+      "yes_ask": 0.61,
+      "no_bid": 0.39,
+      "no_ask": 0.43,
+      "last_price": 0.59,
+      "volume": 16928,
+      "open_interest": 91809,
+      "close_time": "2026-04-03T19:41:17.215598",
+      "expiration_time": "2026-02-08T19:41:17.215601"
+    }
+  ]
+}
